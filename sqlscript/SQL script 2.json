@@ -1,0 +1,17 @@
+{
+	"name": "SQL script 2",
+	"properties": {
+		"content": {
+			"query": "-- 1. Create credential (only if it doesn't exist)\nIF NOT EXISTS (SELECT 1 FROM sys.database_scoped_credentials WHERE name = 'cred_sang')\nBEGIN\n    CREATE DATABASE SCOPED CREDENTIAL cred_sang\n    WITH IDENTITY = 'MANAGED IDENTITY';\nEND\nGO\n\n-- 2. Create external data sources (silver & gold)\nCREATE EXTERNAL DATA SOURCE source_silver\nWITH (\n    LOCATION = 'https://awstakendatalake.blob.core.windows.net/silver',\n    CREDENTIAL = cred_sang\n);\nGO\n\nCREATE EXTERNAL DATA SOURCE source_gold\nWITH (\n    LOCATION = 'https://awstakendatalake.blob.core.windows.net/gold',\n    CREDENTIAL = cred_sang\n);\nGO\n\n-- 3. Create Parquet file format (correct spelling)\nCREATE EXTERNAL FILE FORMAT format_parquet\nWITH (\n    FORMAT_TYPE = PARQUET,\n    DATA_COMPRESSION = 'org.apache.hadoop.io.compress.SnappyCodec'\n);\nGO\n\n-- 4. Create external table (CETAS syntax fix)\nCREATE EXTERNAL TABLE gold.extsales\nWITH (\n    LOCATION = 'extsales/',\n    DATA_SOURCE = source_gold,\n    FILE_FORMAT = format_parquet\n)\nAS \nSELECT * FROM gold.sales;  -- Ensure gold.sales exists!\nGO",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "awsdatabasenew",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}

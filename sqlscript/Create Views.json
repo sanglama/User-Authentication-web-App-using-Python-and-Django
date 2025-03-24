@@ -1,0 +1,17 @@
+{
+	"name": "Create Views",
+	"properties": {
+		"content": {
+			"query": "-- CREATE VIEW CALENDAR\n--------------------------\nCREATE VIEW gold.Calendar\nAS\nSELECT \n    *\nFROM\n    OPENROWSET\n        (\n            BULK 'https://awstakendatalake.blob.core.windows.net/silver/AdventureWorks_Calendar/',\n            FORMAT = 'PARQUET'\n        ) as QUER1;\n        GO\n\n\n\n---------------------\n--CREATE VIEW CUSTOMERS\n-----------------------\nCREATE VIEW gold.Customers\nAS\nSELECT \n    *\nFROM\n    OPENROWSET\n        (\n            BULK 'https://awstakendatalake.blob.core.windows.net/silver/AdventureWorks_Customers/',\n            FORMAT = 'PARQUET'\n        ) as QUER1;\n        GO\n\n\n\n----------------------\n--CREATE VIEW PRODUCT\n-----------------------\nCREATE VIEW gold.Product\nAS\nSELECT \n    *\nFROM\n    OPENROWSET\n        (\n            BULK 'https://awstakendatalake.blob.core.windows.net/silver/AdventureWorks_Product/',\n            FORMAT = 'PARQUET'\n        ) as QUER1;\n        GO\n\n\n\n---------------------------\n--CREATE VIEW RETURNS\n---------------------------\nCREATE VIEW gold.Returns\nAS\nSELECT \n    *\nFROM\n    OPENROWSET\n        (\n            BULK 'https://awstakendatalake.blob.core.windows.net/silver/AdventureWorks_Returns/',\n            FORMAT = 'PARQUET'\n        ) as QUER1;\n        GO\n\n\n\n-----------------------\n--CREATE VIEW SALES\n-----------------------\nCREATE VIEW gold.Sales\nAS\nSELECT \n    *\nFROM\n    OPENROWSET\n        (\n            BULK 'https://awstakendatalake.blob.core.windows.net/silver/AdventureWorks_Sales/',\n            FORMAT = 'PARQUET'\n        ) as QUER1;\n        GO   \n\n---------------------------\n--CREATE VIEW TERRITORIES\n-----------------------------\nCREATE VIEW gold.Territories\nAS\nSELECT \n    *\nFROM\n    OPENROWSET\n        (\n            BULK 'https://awstakendatalake.blob.core.windows.net/silver/AdventureWorks_Territories/',\n            FORMAT = 'PARQUET'\n        ) as QUER1;\n        GO  \n\n\n-----------------------------\n--CREATE VIEW SUBCAT\n----------------------------\nCREATE VIEW gold.Subcat\nAS\nSELECT \n    *\nFROM\n    OPENROWSET\n        (\n            BULK 'https://awstakendatalake.blob.core.windows.net/silver/Product_Subcategories/',\n            FORMAT = 'PARQUET'\n        ) as QUER1;\n        GO",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "awsdatabasenew",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
